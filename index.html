@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our First Month ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #da70d6);
+            border-radius: 50%;
+            animation: sparkle 3s infinite ease-in-out;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .page {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #da70d6, #ff69b4);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .love-letter {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+        }
+        
+        .game-prompt {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 12px 40px rgba(255, 105, 180, 0.2);
+            max-width: 500px;
+        }
+        
+        .prompt-title {
+            font-size: 1.8rem;
+            color: #ff69b4;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .hint {
+            font-size: 1rem;
+            color: #da70d6;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.4);
+        }
+        
+        .unlock-message {
+            font-size: 1.3rem;
+            color: #ff69b4;
+            margin: 20px 0;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .heart {
+            font-size: 2rem;
+            color: #ff69b4;
+            animation: heartbeat 2s infinite;
+            margin: 0 10px;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float-up 4s infinite linear;
+            opacity: 0;
+        }
+        
+        @keyframes float-up {
+            0% { 
+                opacity: 0;
+                transform: translateY(100vh) rotate(0deg);
+            }
+            10% { 
+                opacity: 1;
+            }
+            90% { 
+                opacity: 1;
+            }
+            100% { 
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        .download-btn {
+            background: linear-gradient(45deg, #da70d6, #ff69b4);
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            margin-top: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(218, 112, 214, 0.4);
+        }
+        
+        .final-message {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin: 30px 0;
+            text-align: center;
+            background: linear-gradient(45deg, #ff69b4, #da70d6, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+
+        #final .love-letter {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInLetter 3.5s ease-in-out forwards;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes fadeInLetter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<audio id="bg-music" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9ba1e91557.mp3" type="audio/mpeg">
+</audio>
+<body>
+    <div class="sparkles"></div>
+    <div class="floating-hearts"></div>
+    
+    <div class="container">
+        <!-- Homepage -->
+        <div class="page active" id="homepage">
+            <h1>Our First Month ✨</h1>
+            <div class="love-letter">
+                <p>My dearest love,</p>
+                <br>
+                <p>One month ago, you said "hi" and changed everything. In these 30 days, you've become my favorite hello and my hardest goodbye. You've made me laugh until my stomach hurt, smile until my cheeks ached, and fall so deeply in love that I forgot what life was like before you.</p>
+                <br>
+                <p>Every day with you feels like a new adventure, every conversation a treasure, every moment a gift I want to unwrap slowly and savor forever.</p>
+                <br>
+                <p>So here's a little game, just for you, just for us. Answer the questions, unlock the memories, and discover just how much you mean to me.</p>
+                <br>
+                <p>Ready to play? <span class="heart">💕</span></p>
+            </div>
+            <button class="btn" onclick="startGame()">Start Our Game 🎮</button>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Page 1: Write the Word -->
+        <div class="page" id="page1">
+            <h1>Chapter 1: The Beginning</h1>
+            <div class="game-prompt">
+                <div class="prompt-title">What's the first thing I told you to do here?</div>
+                <div class="hint">It's right in the name of the game 🕹️</div>
+                <input type="text" class="password-input" id="password1" placeholder="Enter your answer...">
+                <button class="btn" onclick="checkPassword(1, 'write')">Unlock Memory 💖</button>
+                <div class="error-message" id="error1">Not quite, my love. Think about what we're doing right now... 💭</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%"></div>
+            </div>
+        </div>
+        
+        <!-- Page 2: Our Beginning -->
+        <div class="page" id="page2">
+            <h1>Chapter 2: The Day Everything Changed</h1>
+            <div class="unlock-message">
+                <p>"And you did. You wrote yourself into my story, Tiny Human." ✍️</p>
+            </div>
+            <div class="game-prompt">
+                <div class="prompt-title">The date you messaged me 'hi' for the first time</div>
+                <div class="hint">The day my world got warmer 🌞</div>
+                <input type="text" class="password-input" id="password2" placeholder="DD/MM or DDmonth...">
+                <button class="btn" onclick="checkPassword(2, '11june')">Unlock Memory 💖</button>
+                <div class="error-message" id="error2">Think back to that beautiful day... 📅</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 40%"></div>
+            </div>
+        </div>
+        
+        <!-- Page 3: Inside Joke -->
+        <div class="page" id="page3">
+            <h1>Chapter 3: Our Weird Chemistry</h1>
+            <div class="unlock-message">
+                <p>That first "hi" was like sunrise after the longest night. Suddenly, everything made sense. 🌅</p>
+            </div>
+            <div class="game-prompt">
+                <div class="prompt-title">Finish this: Mango and ___</div>
+                <div class="hint">Your cursed fav combo 👀</div>
+                <input type="text" class="password-input" id="password3" placeholder="What's your weird combo?">
+                <button class="btn" onclick="checkPassword(3, 'maggi')">Unlock Memory 💖</button>
+                <div class="error-message" id="error3">That weird thing you eat that makes me question everything... 🤔</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%"></div>
+            </div>
+        </div>
+        
+        <!-- Page 4: Nickname -->
+        <div class="page" id="page4">
+            <h1>Chapter 4: What You Mean to Me</h1>
+            <div class="unlock-message">
+                <p>Still judging you... but also totally in love with you. 😂💕</p>
+            </div>
+            <div class="game-prompt">
+                <div class="prompt-title">What's one nickname I gave you?</div>
+                <div class="hint">It means 'my home' 🏠</div>
+                <input type="text" class="password-input" id="password4" placeholder="What do I call you?">
+                <button class="btn" onclick="checkPassword(4, 'mi casa')">Unlock Memory 💖</button>
+                <div class="error-message" id="error4">Where my heart feels safest... 💝</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%"></div>
+            </div>
+        </div>
+        
+        <!-- Page 5: Everything -->
+        <div class="page" id="page5">
+            <h1>Chapter 5: The Truth</h1>
+            <div class="unlock-message">
+                <p>Wherever you are… that's home. 🏠💕</p>
+            </div>
+            <div class="game-prompt">
+                <div class="prompt-title">What do I love most about you?</div>
+                <div class="hint">It's in the way you breathe, smile, exist.</div>
+                <input type="text" class="password-input" id="password5" placeholder="What do I love?">
+                <button class="btn" onclick="checkPassword(5, 'everything')">Unlock Final Memory 💖</button>
+                <div class="error-message" id="error5">It's not just one thing... it's all of it. 🌟</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
+            </div>
+        </div>
+        
+        <!-- Final Page -->
+        <div class="page" id="final">
+            <h1>Our Story Unlocked 💕</h1>
+            <div class="final-message">
+                <p>You've unlocked it all, just like you did with me.</p>
+                <p>Here's a piece of my heart for you to keep forever.</p>
+                <span class="heart">💖</span>
+            </div>
+            <div class="love-letter">
+                <p>My Beautiful Girlfriend,</p>
+                <br>
+                <p>In just one month, you've become my everything. You're the mango to my... well, normal food choices. You're mi casa, my home, my safe space in this chaotic world.</p>
+                <br>
+                <p>I love everything about you - your laugh that makes my heart skip, your smile that lights up my darkest days, your weird food combinations that make me question your sanity but love you even more.</p>
+                <br>
+                <p>You wrote yourself into my story, and now I can't imagine any chapter without you.</p>
+                <br>
+                <p>Here's to our first month, and to all the months, years, and adventures ahead.</p>
+                <br>
+                <p>Forever yours,<br>Your Loving Boyfriend 💕</p>
+            </div>
+            <button class="download-btn" onclick="downloadNovel()">📖 Download Our Story</button>
+        </div>
+    </div>
+    
+    <script>
+        let currentPage = 0;
+        const pages = ['homepage', 'page1', 'page2', 'page3', 'page4', 'page5', 'final'];
+        
+        // Create sparkles
+        function createSparkles() {
+            const sparkleContainer = document.querySelector('.sparkles');
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkleContainer.appendChild(sparkle);
+            }
+        }
+        
+        // Create floating hearts
+        function createFloatingHearts() {
+            const heartContainer = document.querySelector('.floating-hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '💕';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 2000);
+        }
+        
+        function startGame() {
+            showPage(1);
+        }
+        
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            if (pageNum === 0) {
+                document.getElementById('homepage').classList.add('active');
+            } else if (pageNum <= 5) {
+                document.getElementById('page' + pageNum).classList.add('active');
+            } else {
+                document.getElementById('final').classList.add('active');
+            }
+            
+            currentPage = pageNum;
+        }
+        
+        function checkPassword(pageNum, correctPassword) {
+            const input = document.getElementById('password' + pageNum);
+            const errorMsg = document.getElementById('error' + pageNum);
+            const userInput = input.value.toLowerCase().trim();
+            
+            if (userInput === correctPassword) {
+                // Correct password
+                errorMsg.style.display = 'none';
+                setTimeout(() => {
+                    if (pageNum < 5) {
+                        showPage(pageNum + 1);
+                    } else {
+                        showPage(6); // Final page
+                    }
+                }, 1000);
+            } else {
+                // Wrong password
+                errorMsg.style.display = 'block';
+                input.style.border = '2px solid #ff6b6b';
+                setTimeout(() => {
+                    input.style.border = '2px solid rgba(255, 105, 180, 0.5)';
+                }, 2000);
+            }
+        }
+        
+            function downloadNovel() {
+                const link = document.createElement('a');
+                link.href = 'public/moon.pdf'; // Ensure moon.pdf is in the public/ folder
+                link.download = 'Our_Love_Story.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+        
+        // Initialize effects
+        createSparkles();
+        createFloatingHearts();
+        
+        // Allow Enter key to submit passwords
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const activeInput = document.querySelector('.page.active .password-input');
+                if (activeInput) {
+                    const pageNum = parseInt(activeInput.id.replace('password', ''));
+                    const passwords = ['', 'write', '11june', 'maggi', 'mi casa', 'everything'];
+                    checkPassword(pageNum, passwords[pageNum]);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
